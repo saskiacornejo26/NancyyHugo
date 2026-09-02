@@ -54,7 +54,6 @@ export const INVITATION: InvitationData = {
     photo('04.jpg'),
     photo('05.jpg'),
     photo('06.jpg'),
-    photo('07.jpg'),
     photo('08.jpg'),
     photo('09.jpg'),
     photo('10.jpg'),
