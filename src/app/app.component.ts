@@ -10,8 +10,6 @@ import { INVITATION } from './data/invitation.data';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnDestroy {
-  private static readonly musicClipSeconds = 30;
-
   readonly invitation = INVITATION; // datos de la boda
   readonly opened = signal(false);
   readonly musicOn = signal(false);
@@ -45,8 +43,6 @@ export class AppComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.audio?.pause();
-    this.audio?.removeEventListener('timeupdate', this.onMusicTimeUpdate);
-    this.audio?.removeEventListener('ended', this.onMusicEnded);
   }
 
   private startMusic(): void {
@@ -57,26 +53,9 @@ export class AppComponent implements OnDestroy {
 
     if (!this.audio) {
       this.audio = new Audio(this.invitation.musicUrl);
-      this.audio.loop = false;
-      this.audio.addEventListener('timeupdate', this.onMusicTimeUpdate);
-      this.audio.addEventListener('ended', this.onMusicEnded);
+      this.audio.loop = true;
     }
 
     void this.audio.play().then(() => this.musicOn.set(true)).catch(() => this.musicOn.set(false));
   }
-
-  private readonly onMusicTimeUpdate = (): void => {
-    if (!this.audio || this.audio.currentTime < AppComponent.musicClipSeconds) {
-      return;
-    }
-    this.audio.currentTime = 0;
-  };
-
-  private readonly onMusicEnded = (): void => {
-    if (!this.audio) {
-      return;
-    }
-    this.audio.currentTime = 0;
-    void this.audio.play();
-  };
 }

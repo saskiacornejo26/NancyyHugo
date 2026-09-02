@@ -42,11 +42,11 @@ export const INVITATION: InvitationData = {
     },
   ],
   itinerary: [
-    { time: '17:00', title: 'Ceremonia', detail: 'Nos damos el sí', icon: 'ceremony' },
-    { time: '19:30', title: 'Recepción', detail: 'Bienvenida en la hacienda', icon: 'reception' },
-    { time: '20:00', title: 'Brindis', detail: 'Un brindis por nosotros', icon: 'toast' },
-    { time: '21:00', title: 'Cena', detail: 'Mesa y discursos', icon: 'dinner' },
-    { time: '22:00', title: 'Fiesta', detail: 'A bailar hasta tarde', icon: 'party' },
+    { time: '15:30', title: 'Ceremonia', detail: 'Nos damos el sí', icon: 'ceremony' },
+    { time: '18:00', title: 'Recepción', detail: 'Bienvenida en la hacienda', icon: 'reception' },
+    { time: '19:00', title: 'Brindis', detail: 'Un brindis por nosotros', icon: 'toast' },
+    { time: '19:30', title: 'Cena', detail: 'Mesa y discursos', icon: 'dinner' },
+    { time: '20:30', title: 'Fiesta', detail: 'A bailar hasta tarde', icon: 'party' },
   ],
   gallery: [
     photo('01.jpg'),
