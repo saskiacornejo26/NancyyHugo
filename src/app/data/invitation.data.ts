@@ -117,7 +117,7 @@ export const INVITATION: InvitationData = {
     url: 'https://www.youtube.com/watch?v=2Vv-BfVoq4g',
   },
   rsvpDeadline: '14 de octubre de 2026',
-  whatsapp: '51940280720',
+  whatsapp: '51940747047',
   musicTitle: 'Summertime',
   // Archivo MP3 (no YouTube). Pon el mp3 en public/audio/ y deja esta ruta,
   // o pega una URL directa que termine en .mp3

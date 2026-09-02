@@ -66,34 +66,25 @@
 
 .card {
   position: absolute;
-  left: 12%;
-  right: 12%;
-  top: 22%;
+  left: 16%;
+  right: 16%;
+  top: 14%;
   z-index: 1;
-  height: 58%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, #f7f9f4, #e8d9c4);
-  color: var(--ink);
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #f2ebe1;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
   opacity: 0;
   transform: translateY(12px);
   transition: transform 0.85s ease 0.2s, opacity 0.35s ease 0.12s;
 }
 
-.card-script {
-  font-family: var(--script);
-  font-size: 1.35rem;
-  color: var(--terracotta);
-}
-
-.card strong {
-  font-family: var(--serif);
-  font-size: 1.5rem;
-  letter-spacing: 0.18em;
-  font-weight: 500;
+.card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .flap {
@@ -122,25 +113,83 @@
   left: 50%;
   top: 62%;
   z-index: 4;
-  width: 78px;
-  height: 78px;
+  width: 92px;
+  height: 92px;
   padding: 0;
+  border: 0;
   transform: translate(-50%, -50%);
   background: none;
-  filter: drop-shadow(0 8px 12px rgba(58, 28, 16, 0.42));
+  cursor: pointer;
+  filter: drop-shadow(0 8px 11px rgba(58, 28, 16, 0.4));
   transition: transform 0.25s ease, opacity 0.4s ease, filter 0.25s ease;
 }
 
-.seal svg {
-  display: block;
+.seal-disk {
+  position: relative;
+  display: grid;
+  place-items: center;
   width: 100%;
   height: 100%;
-  overflow: visible;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 26%, #e8a078 0%, #d07a55 38%, #b45a36 72%, #7a3518 100%);
+  box-shadow:
+    inset 3px 4px 5px rgba(255, 226, 200, 0.44),
+    inset -4px -5px 6px rgba(58, 20, 8, 0.44),
+    inset 0 0 0 6px rgba(168, 78, 46, 0.12);
+}
+
+.seal-disk::before {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(74, 28, 12, 0.22),
+    inset 1px 2px 3px rgba(58, 20, 8, 0.22);
+  pointer-events: none;
+}
+
+.seal-well {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 32%, #c86a44 0 42%, #a84c2c 78%, #8a381a 100%);
+  box-shadow:
+    inset 2px 3px 5px rgba(48, 16, 6, 0.4),
+    inset -2px -2px 4px rgba(236, 176, 140, 0.14);
+}
+
+.seal-mono {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.08em;
+  color: #c56a42;
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: 1.72rem;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-shadow:
+    -1px -1px 0.4px rgba(255, 230, 208, 0.72),
+    1.2px 1.4px 1px rgba(48, 16, 6, 0.5);
+}
+
+.seal-y {
+  font-size: 1.05rem;
+  font-weight: 500;
 }
 
 .seal:hover:not(:disabled) {
   transform: translate(-50%, -50%) scale(1.06);
-  filter: drop-shadow(0 10px 16px rgba(58, 28, 16, 0.5));
+  filter: drop-shadow(0 11px 16px rgba(58, 28, 16, 0.5));
 }
 
 .seal:disabled {
@@ -164,7 +213,11 @@
 
 @media (max-width: 420px) {
   .seal {
-    width: 70px;
-    height: 70px;
+    width: 82px;
+    height: 82px;
+  }
+
+  .seal-mono {
+    font-size: 1.52rem;
   }
 }

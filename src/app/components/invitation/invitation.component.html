@@ -560,6 +560,19 @@
       </p>
       <ul class="gifts-list">
         <li>
+          <a
+            class="gifts-option"
+            [href]="data().gifts.registryUrl"
+            target="_blank"
+            rel="noopener"
+          >
+            <strong>Lista de regalos sugeridos</strong>
+            <span>Sin Envolturas</span>
+            <small>Toca para ver las opciones</small>
+          </a>
+        </li>
+       
+        <li>
           <button type="button" (click)="copyGift('cuenta', data().gifts.bankAccount)">
             <strong>Nro. de cuenta bancaria Scotiabank </strong>
             <span>{{ data().gifts.bankAccount }}</span>
@@ -580,19 +593,11 @@
             <small>{{ copied() === 'yape' ? 'Copiado' : 'Toca para copiar' }}</small>
           </button>
         </li>
-        <li>
-          <a
-            class="gifts-option"
-            [href]="data().gifts.registryUrl"
-            target="_blank"
-            rel="noopener"
-          >
-            <strong>Lista de regalos sugeridos</strong>
-            <span>Sin Envolturas</span>
-            <small>Toca para ver las opciones</small>
-          </a>
-        </li>
+        
       </ul>
+      <p class="gifts-text">
+        Cualquier transacción a nombre de Nancy Martinez.
+      </p>
     </div>
   </div>
 }
