@@ -1,0 +1,81 @@
+.shell {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 560px);
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.shell.is-cover {
+  width: 100%;
+  background: #1a1612;
+  box-shadow: none;
+}
+
+.shell.is-open {
+  background: transparent;
+}
+
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 0;
+  width: min(100%, 560px);
+  height: 100dvh;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: url('/img/web/03.jpg') center / cover no-repeat;
+}
+
+.music {
+  position: fixed;
+  right: max(1rem, calc(50vw - 260px));
+  bottom: 1.1rem;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.75rem 0.45rem 0.45rem;
+  border-radius: 999px;
+  background: var(--terracotta);
+  color: var(--ivory);
+  box-shadow: 0 10px 24px rgba(140, 66, 31, 0.28);
+}
+
+.disc {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #f7f9f4 0 4px, transparent 5px),
+    repeating-radial-gradient(circle, #8c421f 0 2px, #d07a55 3px 5px);
+}
+
+.on .disc {
+  animation: spin 4s linear infinite;
+}
+
+.music small {
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .shell,
+  .page-bg {
+    width: 100%;
+  }
+
+  .music {
+    right: 1rem;
+  }
+}

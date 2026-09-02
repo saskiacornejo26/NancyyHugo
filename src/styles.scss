@@ -1,0 +1,124 @@
+:root {
+  --ivory: #f7f9f4;
+  --paper: #f7f9f4;
+  --cream: #d8c8b3;
+  --gold: #c8a75d;
+  --gold-deep: #8c421f;
+  --terracotta: #d07a55;
+  --terracotta-deep: #8c421f;
+  --ink: #747c58;
+  --ink-soft: #8a9174;
+  --blush: #d8c8b3;
+  --olive: #747c58;
+  --shadow: 0 24px 60px rgba(140, 66, 31, 0.14);
+  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --script: 'Great Vibes', cursive;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: #1c1813;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+}
+
+a {
+  color: inherit;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.ornament {
+  width: 92px;
+  height: 18px;
+  margin: 0 auto 1.1rem;
+  color: var(--olive);
+}
+
+.section-kicker {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--olive);
+}
+
+.section-title {
+  font-family: var(--script);
+  font-size: clamp(2.6rem, 8vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--terracotta);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 48px;
+  padding: 0.8rem 1.4rem;
+  border: 1px solid var(--terracotta-deep);
+  color: var(--ivory);
+  background: var(--terracotta);
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(140, 66, 31, 0.22);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--gold);
+}

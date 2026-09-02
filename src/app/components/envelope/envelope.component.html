@@ -1,0 +1,76 @@
+<section class="screen" [class.is-opening]="opening()">
+  <div class="glow" aria-hidden="true"></div>
+
+  <p class="eyebrow">Tienes una invitación</p>
+  <p class="script">{{ couple().bride }} & {{ couple().groom }}</p>
+
+  <div class="envelope">
+    <div class="paper">
+      <div class="card">
+        <span class="card-script">Nuestra boda</span>
+        <strong>{{ couple().monogram }}</strong>
+      </div>
+      <div class="flap"></div>
+      <button
+        type="button"
+        class="seal"
+        (click)="open()"
+        [disabled]="opening()"
+        [attr.aria-label]="'Abrir invitación de ' + couple().bride + ' y ' + couple().groom"
+      >
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <defs>
+            <radialGradient id="wax-body" cx="34%" cy="28%" r="72%">
+              <stop offset="0%" stop-color="#e08a62"/>
+              <stop offset="42%" stop-color="#d07a55"/>
+              <stop offset="100%" stop-color="#8c421f"/>
+            </radialGradient>
+            <radialGradient id="wax-core" cx="38%" cy="32%" r="62%">
+              <stop offset="0%" stop-color="#d88a64"/>
+              <stop offset="55%" stop-color="#c46a42"/>
+              <stop offset="100%" stop-color="#8c421f"/>
+            </radialGradient>
+            <filter id="wax-depth" x="-18%" y="-18%" width="136%" height="136%">
+              <feDropShadow dx="0" dy="2" stdDeviation="1.4" flood-color="#3a1c10" flood-opacity="0.4"/>
+            </filter>
+          </defs>
+          <path
+            fill="url(#wax-body)"
+            filter="url(#wax-depth)"
+            d="M61 5c12-1 22 3 30 10 9 7 18 16 21 28 4 13 2 26-3 38-5 13-16 24-29 30-8 4-18 6-28 4-14-3-27-12-34-25-7-13-7-28-2-41C21 34 32 20 46 12c5-3 10-6 15-7z"
+          />
+          <circle cx="60" cy="60" r="36.5" fill="url(#wax-core)"/>
+          <circle cx="60" cy="60" r="36.5" fill="none" stroke="#8c421f" stroke-opacity="0.28" stroke-width="1"/>
+          <text
+            x="37"
+            y="69"
+            text-anchor="middle"
+            fill="#6a3016"
+            font-family="Cormorant Garamond, Times New Roman, serif"
+            font-size="30"
+            font-style="italic"
+            font-weight="600"
+          >N</text>
+          <text
+            x="60"
+            y="64"
+            text-anchor="middle"
+            fill="#6a3016"
+            font-family="Great Vibes, cursive"
+            font-size="20"
+          >&amp;</text>
+          <text
+            x="84"
+            y="69"
+            text-anchor="middle"
+            fill="#6a3016"
+            font-family="Cormorant Garamond, Times New Roman, serif"
+            font-size="30"
+            font-style="italic"
+            font-weight="600"
+          >H</text>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+@if (opened()) {
+  <div class="page-bg" aria-hidden="true"></div>
+}
+<main class="shell" [class.is-cover]="!opened()" [class.is-open]="opened()">
+  @if (!opened()) {
+    <app-envelope
+      [couple]="invitation.couple"
+      (opened)="openInvitation()"
+    />
+  } @else {
+    <app-invitation [data]="invitation" />
+    <button
+      type="button"
+      class="music"
+      [class.on]="musicOn()"
+      (click)="toggleMusic()"
+      [attr.aria-label]="musicOn() ? 'Pausar música' : 'Reproducir música'"
+    >
+      <span class="disc"></span>
+      <small>{{ musicOn() ? 'Pausar' : invitation.musicTitle }}</small>
+    </button>
+  }
+</main>

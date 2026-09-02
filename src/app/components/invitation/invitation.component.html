@@ -1,0 +1,615 @@
+<article class="page">
+  <nav class="page-nav" aria-label="Índice">
+    <button type="button" (click)="goToSection('itinerario')">Itinerario</button>
+    <button type="button" (click)="goToSection('album')">Álbum</button>
+    <button type="button" (click)="goToSection('regalos')">Regalos</button>
+    <button type="button" (click)="goToSection('tips')">Tips</button>
+    <button type="button" (click)="goToSection('confirmacion')">Confirmación</button>
+    <button type="button" (click)="goToSection('mas')">Más</button>
+  </nav>
+
+  <header class="hero">
+    <p class="hero-kicker">Nos casamos</p>
+    <h1>
+      <span>{{ data().couple.bride }}</span>
+      <em>&</em>
+      <span>{{ data().couple.groom }}</span>
+    </h1>
+    <p class="hero-date">{{ data().dateLabel }}</p>
+    <p class="hero-city">{{ data().city }}</p>
+    <p class="hero-guest">Con alegría te invitan </p>
+    <span class="scroll-hint">Desliza</span>
+  </header>
+
+  <section class="block countdown" appReveal>
+    <svg class="ornament" viewBox="0 0 92 18" fill="none" aria-hidden="true">
+      <path d="M2 9h28M62 9h28M46 2v14M38 9h16" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="46" cy="9" r="3.2" stroke="currentColor"/>
+    </svg>  
+    <h2 class="section-title">Faltan</h2>
+    <div class="timer">
+      <div>
+        <strong>{{ countdown().days | number:'2.0-0' }}</strong>
+        <span>Días</span>
+      </div>
+      <div>
+        <strong>{{ countdown().hours | number:'2.0-0' }}</strong>
+        <span>Hrs</span>
+      </div>
+      <div>
+        <strong>{{ countdown().minutes | number:'2.0-0' }}</strong>
+        <span>Min</span>
+      </div>
+      <div>
+        <strong>{{ countdown().seconds | number:'2.0-0' }}</strong>
+        <span>Seg</span>
+      </div>
+    </div>
+    <a class="btn" [href]="calendarUrl()" target="_blank" rel="noopener">Guardar la fecha</a>
+  </section>
+
+  <section class="block quote" appReveal>
+    <p>“{{ data().quote }}”</p>
+  </section>
+
+  <section class="block" appReveal>
+    <p class="section-kicker">Con la bendición de</p>
+    <h2 class="section-title">Nuestros padres</h2>
+    <div class="parents">
+      @for (pair of data().parents; track pair.title) {
+        <div>
+          <p>{{ pair.title }}</p>
+          @for (name of pair.names; track name) {
+            <strong>{{ name }}</strong>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="block" appReveal>
+    <p class="section-kicker">Con el cariño de</p>
+    <h2 class="section-title">Nuestros padrinos</h2>
+    <div class="padrinos">
+      @for (pair of data().padrinos; track pair.title) {
+        <div>
+          <p>{{ pair.title }}</p>
+          @for (name of pair.names; track name) {
+            <strong>{{ name }}</strong>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="block story" appReveal>
+    <h2 class="section-title">Nuestra historia</h2>
+    <p>{{ data().story }}</p>
+  </section>
+
+  <section class="block" appReveal>
+    <p class="section-kicker">Dónde y cuándo</p><br>
+    <h2 class="section-title">El gran día</h2>
+    <div class="venues">
+      @for (venue of data().venues; track venue.title) {
+        <article>
+          <p class="venue-label">{{ venue.title }}</p>
+          <h3>{{ venue.name }}</h3>
+          <p class="venue-time">{{ venue.time }}</p>
+          <p class="venue-address">{{ venue.address }}</p>
+          <a class="btn btn-ghost" [href]="venue.mapUrl" target="_blank" rel="noopener">Ver mapa</a>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section id="itinerario" class="block itinerary" appReveal>
+    <p class="section-kicker">Itinerario</p><br>
+    <h2 class="section-title">Así fluirá la noche</h2>
+    <ol class="timeline">
+      @for (item of data().itinerary; track item.time; let i = $index) {
+        <li [class.is-flip]="i % 2 === 1">
+          <div class="timeline-art" aria-hidden="true">
+            <img [src]="'/img/itinerary/' + item.icon + '.png'" alt="" />
+          </div>
+          <div class="timeline-axis" aria-hidden="true">
+            <svg class="heart" viewBox="0 0 18 16">
+              <path d="M9 14.5C4 10.4 1.5 7.6 1.5 4.8A3.6 3.6 0 0 1 9 3.2a3.6 3.6 0 0 1 7.5 1.6c0 2.8-2.5 5.6-7.5 9.7z"/>
+            </svg>
+          </div>
+          <div class="timeline-copy">
+            <strong>{{ item.title }}</strong>
+            <time>{{ item.time }}</time>
+          </div>
+        </li>
+      }
+      <li class="timeline-finale" aria-hidden="true">
+        <img src="/img/itinerary/car.png" alt="" />
+      </li>
+    </ol>
+  </section>
+
+  <section id="album" class="block album-block" appReveal>
+    <p class="section-kicker">Recuerdos de nuestro amor</p><br>
+    <h2 class="section-title">Álbum</h2>
+    <div
+      class="album"
+      (pointerdown)="onAlbumPointerDown($event)"
+      (pointerup)="onAlbumPointerUp($event)"
+    >
+      <div class="album-track" [style.transform]="albumTransform()">
+        @for (photo of data().gallery; track photo; let i = $index) {
+          <article class="polaroid" [class.is-active]="i === albumIndex()">
+            <button type="button" (click)="onPolaroidClick(i, photo)">
+              <img
+                [src]="photo"
+                [alt]="'Foto de ' + data().couple.bride + ' y ' + data().couple.groom"
+                [attr.loading]="i === albumIndex() ? 'eager' : 'lazy'"
+                [attr.fetchpriority]="i === albumIndex() ? 'high' : 'low'"
+                decoding="async"
+              />
+            </button>
+          </article>
+        }
+      </div>
+    </div>
+    <div class="dots">
+      @for (photo of data().gallery; track photo; let i = $index) {
+        <button
+          type="button"
+          [class.on]="i === albumIndex()"
+          (click)="goToAlbum(i)"
+          [attr.aria-label]="'Ver foto ' + (i + 1)"
+        ></button>
+      }
+    </div>
+    <div class="album-actions">
+      <button type="button" class="btn" [disabled]="albumDownloading()" (click)="downloadAlbum()">
+        {{ albumDownloading() ? 'Descargando ' + albumDownloadProgress() + '/' + data().gallery.length : 'Descargar' }}
+      </button>
+    </div>
+  </section>
+
+  <section class="block feature-wrap" appReveal>
+    <article class="feature-card">
+      <h2>Nuestra música</h2>
+      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <circle cx="28" cy="48" r="8" stroke="currentColor" stroke-width="1.6"/>
+        <circle cx="50" cy="42" r="7" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M36 48V20l22-6v28" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      </svg>
+      <p>Las canciones que nos acompañan</p>
+      <button type="button" class="btn gifts-btn" (click)="openPlaylist()">Escuchar</button>
+    </article>
+  </section>
+
+  <!--<section class="block feature-wrap" appReveal>
+    <article class="feature-card">
+      <h2>Mira el video</h2>
+      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <rect x="10" y="18" width="52" height="36" rx="4" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M30 28v16l16-8-16-8z" fill="currentColor"/>
+      </svg>
+      <p>Un pedacito de nuestra historia</p>
+      <button type="button" class="btn gifts-btn" (click)="openVideo()">Ver video</button>
+    </article>
+  </section>-->
+
+  <section class="block feature-wrap" appReveal>
+    <article class="feature-card">
+      <h2>Código de vestimenta</h2>
+      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <path d="M36 18c4 0 7 3 7 7v4H29v-4c0-4 3-7 7-7z" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M22 30c6 2 10 8 14 16 4-8 8-14 14-16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M28 32h16M36 32v8" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <p>Una orientación para tu vestimenta</p>
+      <button type="button" class="btn gifts-btn" (click)="openDress()">Ver más</button>
+    </article>
+  </section>
+
+  <section id="regalos" class="block gifts-block" appReveal>
+    <h2 class="gifts-title">Regalos</h2>
+    <p class="gifts-lead">Si quieres darnos algo más que tu hermosa presencia...</p>
+    <svg class="gifts-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+      <rect x="12" y="30" width="48" height="32" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M12 30h48v10H12z" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M36 18v44M12 40h48" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M36 30c-8-12-18-12-18-4 0 6 8 8 18 4zM36 30c8-12 18-12 18-4 0 6-8 8-18 4z" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+    <button type="button" class="btn gifts-btn" (click)="openGifts()">Ver más</button>
+  </section>
+
+  <section id="tips" class="block feature-wrap" appReveal>
+    <article class="feature-card">
+      <h2>Tips y Notas</h2>
+      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <rect x="18" y="14" width="36" height="46" rx="3" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M26 12h20v8H26z" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M28 36l6 6 12-14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p>Información adicional / a considerar</p>
+      <button type="button" class="btn gifts-btn" (click)="openTips()">Ver más</button>
+    </article>
+  </section>
+
+  <section id="confirmacion" class="block rsvp" appReveal>
+    <p class="section-kicker">Confirmación</p>
+    <h2 class="section-title">¿Nos acompañas?</h2>
+    <p class="muted rsvp-note">
+      Con mucho cariño, les pedimos que la ceremonia sea únicamente para adultos.
+      Agradecemos de antemano su comprensión.
+    </p>
+    @if (!rsvpSent()) {
+      <form class="rsvp-form" (ngSubmit)="sendRsvp()">
+        <label class="rsvp-name">
+          Nombre
+          <input
+            [ngModel]="rsvpName()"
+            (ngModelChange)="rsvpName.set($event); rsvpError.set('')"
+            name="rsvpName"
+            type="text"
+            required
+            placeholder="Escribe tu nombre"
+            autocomplete="name"
+          />
+        </label>
+        <label>
+          ¿Asistirás?
+          <select [ngModel]="rsvpAttending()" (ngModelChange)="rsvpAttending.set($event)" name="attending">
+            <option value="si">Sí, ahí estaré</option>
+            <option value="no">No podré asistir</option>
+          </select>
+        </label>
+        <label>
+          Mensaje para los novios
+          <textarea
+            [ngModel]="rsvpMessage()"
+            (ngModelChange)="rsvpMessage.set($event)"
+            name="message"
+            rows="3"
+            placeholder="Un deseo, una anécdota o un abrazo"
+          ></textarea>
+        </label>
+        @if (rsvpError()) {
+          <p class="muted">{{ rsvpError() }}</p>
+        }
+        <button type="submit" class="btn">Confirmar por WhatsApp</button>
+      </form>
+    } @else {
+      <p class="thanks">¡Gracias, {{ rsvpName() }}! WhatsApp se abrió con tu confirmación lista para enviar.</p>
+    }
+  </section>
+
+  <!--<section id="mas" class="block feature-wrap" appReveal>
+    <article class="feature-card">
+      <h2>Música</h2>
+      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <path d="M30 20v28a8 8 0 1 1-3-6.3V28l22-6v20a8 8 0 1 1-3-6.3V16l-19 4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M18 14l4 2M16 22h5M52 18l5-3M54 26h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <p>¿Cuál es la canción que no puede faltar en la lista de reproducción de la fiesta?</p>
+      <button type="button" class="btn gifts-btn" (click)="openSongs()">Sugerir canción</button>
+    </article>
+  </section>-->
+
+  <section class="share">
+    <h2>Compartimos este día junto a ti</h2>
+    <p>Comparte tus fotos y videos de este hermoso día</p>
+    <div class="share-box">
+      <label class="share-choice">
+        <input type="file" accept="image/*,video/*" multiple (change)="onShareFiles($event)" />
+        <span>Cargar archivos</span>
+      </label>
+      <button type="button" class="share-choice" (click)="openCamera()">Tomar foto</button>
+      @if (shareFiles().length) {
+        <div class="share-previews">
+          @for (file of shareFiles(); track file.preview) {
+            @if (file.kind === 'image') {
+              <img [src]="file.preview" [alt]="file.name" />
+            } @else {
+              <span>{{ file.name }}</span>
+            }
+          }
+        </div>
+      }
+    </div>
+    <p class="share-hint">
+      @if (uploadMessage()) {
+        {{ uploadMessage() }}
+      } @else {
+        Elige fotos y toca Subir fotos. No te saca de la invitación.
+      }
+    </p>
+    <button
+      type="button"
+      class="btn share-btn"
+      [disabled]="uploadState() === 'uploading'"
+      (click)="uploadShareFiles()"
+    >
+      {{ uploadState() === 'uploading' ? 'Subiendo...' : 'Subir fotos' }}
+    </button>
+  </section>
+
+  <footer class="footer">
+    <p class="section-title">{{ data().couple.bride }} & {{ data().couple.groom }}</p>
+    <p class="hashtag">{{ data().couple.hashtag }}</p>
+    <p class="tiny">{{ data().date | date:'d MMMM y' }} · {{ data().city }}</p>
+  </footer>
+</article>
+
+@if (cameraOpen()) {
+  <div class="camera-overlay" role="dialog" aria-modal="true" aria-label="Cámara">
+    <button type="button" class="gifts-close" (click)="closeCamera()" aria-label="Cerrar cámara">×</button>
+    @if (cameraError()) {
+      <p class="camera-error">{{ cameraError() }}</p>
+    } @else {
+      <video #cameraVideo autoplay playsinline muted></video>
+      <div class="camera-actions">
+        <button type="button" class="btn btn-ghost" (click)="flipCamera()">Cambiar cámara</button>
+        <button type="button" class="camera-shutter" (click)="takePicture()" aria-label="Disparar"></button>
+      </div>
+    }
+  </div>
+}
+
+@if (songsOpen()) {
+  <div class="gifts-backdrop" (click)="closeSongs()">
+    <div
+      class="gifts-modal song-modal"
+      [class.is-dragging]="sheetY() > 0"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Sugerir canción"
+      [style.transform]="sheetShift()"
+      (click)="$event.stopPropagation()"
+      (pointerdown)="onSheetDown($event)"
+      (pointermove)="onSheetMove($event)"
+      (pointerup)="onSheetUp()"
+      (pointercancel)="onSheetUp()"
+    >
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <button type="button" class="gifts-close" (click)="closeSongs()" aria-label="Cerrar">×</button>
+      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <path d="M30 20v28a8 8 0 1 1-3-6.3V28l22-6v20a8 8 0 1 1-3-6.3V16l-19 4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M18 14l4 2M16 22h5M52 18l5-3M54 26h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <h2 class="gifts-title">Sugerir Canción</h2>
+      <form class="underline-form" (ngSubmit)="addSong()">
+        <input [ngModel]="songName()" (ngModelChange)="songName.set($event)" name="songName" placeholder="Tu nombre" />
+        <input [ngModel]="songDetail()" (ngModelChange)="songDetail.set($event)" name="songDetail" placeholder="Nombre de la canción y autor" />
+        <input [ngModel]="songLink()" (ngModelChange)="songLink.set($event)" name="songLink" placeholder="Si lo deseas, ingresa el enlace de Youtube, spotify, etc." />
+        @if (songMessage()) {
+          <p class="muted">{{ songMessage() }}</p>
+        }
+        <button type="submit" class="btn gifts-btn" [disabled]="songState() === 'saving'">
+          {{ songState() === 'saving' ? 'Guardando...' : 'Sugerir Canción' }}
+        </button>
+      </form>
+    </div>
+  </div>
+}
+
+@if (playlistOpen()) {
+  <div class="gifts-backdrop" (click)="closePlaylist()">
+    <div
+      class="gifts-modal"
+      [class.is-dragging]="sheetY() > 0"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Nuestra música"
+      [style.transform]="sheetShift()"
+      (click)="$event.stopPropagation()"
+      (pointerdown)="onSheetDown($event)"
+      (pointermove)="onSheetMove($event)"
+      (pointerup)="onSheetUp()"
+      (pointercancel)="onSheetUp()"
+    >
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <button type="button" class="gifts-close" (click)="closePlaylist()" aria-label="Cerrar">×</button>
+      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <circle cx="28" cy="48" r="8" stroke="currentColor" stroke-width="1.6"/>
+        <circle cx="50" cy="42" r="7" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M36 48V20l22-6v28" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      </svg>
+      <h2 class="gifts-title">Nuestra música</h2>
+      <p class="muted">Las canciones de {{ data().couple.bride }} y {{ data().couple.groom }}</p>
+      <ul class="playlist">
+        @for (song of data().couplePlaylist; track song.title) {
+          <li>
+            <div>
+              <strong>{{ song.title }}</strong>
+              <span>{{ song.artist }}</span>
+            </div>
+            @if (song.url) {
+              <a class="btn gifts-btn playlist-link" [href]="song.url" target="_blank" rel="noopener">Escuchar</a>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+}
+
+@if (videoOpen()) {
+  <div class="gifts-backdrop" (click)="closeVideo()">
+    <div
+      class="gifts-modal video-modal"
+      [class.is-dragging]="sheetY() > 0"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Mira el video"
+      [style.transform]="sheetShift()"
+      (click)="$event.stopPropagation()"
+      (pointerdown)="onSheetDown($event)"
+      (pointermove)="onSheetMove($event)"
+      (pointerup)="onSheetUp()"
+      (pointercancel)="onSheetUp()"
+    >
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <button type="button" class="gifts-close" (click)="closeVideo()" aria-label="Cerrar">×</button>
+      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <rect x="10" y="18" width="52" height="36" rx="4" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M30 28v16l16-8-16-8z" fill="currentColor"/>
+      </svg>
+      <h2 class="gifts-title">{{ data().coupleVideo.title }}</h2>
+      <p class="muted">{{ data().coupleVideo.caption }}</p>
+      @if (videoEmbed(); as embed) {
+        <div class="media-frame">
+          <iframe
+            [src]="embed"
+            title="Video de los novios"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      } @else {
+        <p class="lead">Pronto podrán ver el video aquí.</p>
+      }
+    </div>
+  </div>
+}
+
+@if (dressOpen()) {
+  <div class="gifts-backdrop" (click)="closeDress()">
+    <div
+      class="gifts-modal dress-modal"
+      [class.is-dragging]="sheetY() > 0"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Dress code"
+      [style.transform]="sheetShift()"
+      (click)="$event.stopPropagation()"
+      (pointerdown)="onSheetDown($event)"
+      (pointermove)="onSheetMove($event)"
+      (pointerup)="onSheetUp()"
+      (pointercancel)="onSheetUp()"
+    >
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <button type="button" class="gifts-close" (click)="closeDress()" aria-label="Cerrar">×</button>
+      <img
+        class="dress-code-art"
+        src="/img/web/dress-code.jpg"
+        alt="Dress code: traje para hombres y vestido para mujeres. Evitar blanco, reservado para la novia."
+      />
+    </div>
+  </div>
+}
+
+@if (tipsOpen()) {
+  <div class="gifts-backdrop" (click)="closeTips()">
+    <div
+      class="gifts-modal"
+      [class.is-dragging]="sheetY() > 0"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Tips y notas"
+      [style.transform]="sheetShift()"
+      (click)="$event.stopPropagation()"
+      (pointerdown)="onSheetDown($event)"
+      (pointermove)="onSheetMove($event)"
+      (pointerup)="onSheetUp()"
+      (pointercancel)="onSheetUp()"
+    >
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <button type="button" class="gifts-close" (click)="closeTips()" aria-label="Cerrar">×</button>
+      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <rect x="18" y="14" width="36" height="46" rx="3" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M26 12h20v8H26z" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M28 36l6 6 12-14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2 class="gifts-title">Tips y Notas</h2>
+      <div class="tips">
+        @for (tip of data().tips; track tip.title) {
+          <article>
+            <h3>{{ tip.title }}</h3>
+            <p>{{ tip.text }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+}
+
+@if (giftsOpen()) {
+  <div class="gifts-backdrop" (click)="closeGifts()">
+    <div
+      class="gifts-modal"
+      [class.is-dragging]="sheetY() > 0"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Regalos"
+      [style.transform]="sheetShift()"
+      (click)="$event.stopPropagation()"
+      (pointerdown)="onSheetDown($event)"
+      (pointermove)="onSheetMove($event)"
+      (pointerup)="onSheetUp()"
+      (pointercancel)="onSheetUp()"
+    >
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <button type="button" class="gifts-close" (click)="closeGifts()" aria-label="Cerrar">×</button>
+      <svg class="gifts-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+        <rect x="12" y="30" width="48" height="32" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M12 30h48v10H12z" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M36 18v44M12 40h48" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M36 30c-8-12-18-12-18-4 0 6 8 8 18 4zM36 30c8-12 18-12 18-4 0 6-8 8-18 4z" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <h2 class="gifts-title">Regalos</h2>
+      <p class="gifts-text">
+        También pueden contribuir mediante:
+      </p>
+      <ul class="gifts-list">
+        <li>
+          <button type="button" (click)="copyGift('cuenta', data().gifts.bankAccount)">
+            <strong>Nro. de cuenta bancaria Scotiabank </strong>
+            <span>{{ data().gifts.bankAccount }}</span>
+            <small>{{ copied() === 'cuenta' ? 'Copiado' : 'Toca para copiar' }}</small>
+          </button>
+        </li>
+        <li>
+          <button type="button" (click)="copyGift('cci', data().gifts.interbank)">
+            <strong>Cuenta interbancaria (CCI)</strong>
+            <span>{{ data().gifts.interbank }}</span>
+            <small>{{ copied() === 'cci' ? 'Copiado' : 'Toca para copiar' }}</small>
+          </button>
+        </li>
+        <li>
+          <button type="button" (click)="copyGift('yape', data().gifts.yape)">
+            <strong>Yape</strong>
+            <span>{{ data().gifts.yape }}</span>
+            <small>{{ copied() === 'yape' ? 'Copiado' : 'Toca para copiar' }}</small>
+          </button>
+        </li>
+        <li>
+          <a
+            class="gifts-option"
+            [href]="data().gifts.registryUrl"
+            target="_blank"
+            rel="noopener"
+          >
+            <strong>Lista de regalos sugeridos</strong>
+            <span>Sin Envolturas</span>
+            <small>Toca para ver las opciones</small>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+}
+
+@if (lightbox(); as photo) {
+  <div class="lightbox" (click)="closePhoto()" role="dialog" aria-modal="true">
+    <div
+      class="lightbox-card"
+      (click)="$event.stopPropagation()"
+      (pointerdown)="onLightboxDown($event)"
+      (pointerup)="onLightboxUp($event)"
+    >
+      <img [src]="photo" alt="Foto ampliada" />
+      <div class="album-actions">
+        <button type="button" class="btn" (click)="downloadPhoto(photo)">Descargar esta foto</button>
+        <button type="button" class="btn btn-ghost" (click)="closePhoto()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+}
