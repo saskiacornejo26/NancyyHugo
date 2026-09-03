@@ -79,7 +79,7 @@ export const INVITATION: InvitationData = {
   tips: [
     {
       title: 'Puntualidad',
-      text: 'La ceremonia inicia a las 17:00 en punto. Les pedimos llegar 30 minutos antes.',
+      text: 'La ceremonia inicia a las 15:00 en punto. Les pedimos llegar 30 minutos antes.',
     },
     {
       title: 'Solo adultos',
