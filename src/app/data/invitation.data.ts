@@ -91,7 +91,7 @@ export const INVITATION: InvitationData = {
     },
     {
       title: 'Clima',
-      text: 'Noviembre es fresco por la noche. Un saco o pashmina les va a servir.',
+      text: 'Septiembre es fresco por la noche. Un saco les va a servir.',
     },
   ],
   couplePlaylist: [
