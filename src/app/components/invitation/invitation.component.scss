@@ -336,8 +336,20 @@
   font-size: 1.15rem;
 }
 
+.venue-rings {
+  display: block;
+  width: 78px;
+  height: 78px;
+  margin: 0.1rem auto 0.15rem;
+  object-fit: contain;
+}
+
+.venue-rings.emoji-gif {
+  animation: rings-float 2.7s ease-in-out infinite;
+}
+
 .date-lockup {
-  margin: 0.85rem auto 1rem;
+  margin: 0.35rem auto 1rem;
   max-width: 26rem;
   text-align: center;
 }
@@ -345,7 +357,7 @@
 .date-lockup-month,
 .date-lockup-year {
   margin: 0;
-  font-family: var(--serif);
+  font-family: var(--didot);
   font-size: 1.15rem;
   font-weight: 500;
   letter-spacing: 0.28em;
@@ -363,7 +375,7 @@
 
 .date-lockup-row strong {
   margin: 0;
-  font-family: var(--serif);
+  font-family: var(--didot);
   font-size: clamp(3.1rem, 13vw, 4.1rem);
   font-weight: 500;
   line-height: 0.88;
@@ -389,7 +401,7 @@
   right: 0;
   bottom: calc(50% + 0.3rem);
   left: 0;
-  font-family: var(--serif);
+  font-family: var(--didot);
   font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0.14em;
@@ -1113,6 +1125,17 @@ textarea {
 
   50% {
     transform: translateY(-9px) rotate(4deg) scale(1.04);
+  }
+}
+
+@keyframes rings-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-8deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(8deg) scale(1.06);
   }
 }
 

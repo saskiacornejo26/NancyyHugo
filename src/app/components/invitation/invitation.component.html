@@ -109,6 +109,7 @@
         <article>
           <!--<p class="venue-label">{{ venue.title }}</p>-->
           <!--<h3>{{ venue.name }}</h3>-->
+          <img class="venue-rings emoji-gif" src="/img/rings-emoji.png" alt="" />
           <div class="date-lockup" [attr.aria-label]="data().dateLabel + ', ' + venue.time">
             <p class="date-lockup-month">{{ data().date | date:'MMMM' }}</p>
             <div class="date-lockup-row">
@@ -123,7 +124,7 @@
             <p class="date-lockup-year">{{ data().date | date:'y' }}</p>
           </div>
           <p class="venue-address">{{ venue.address }}</p>
-          <a class="btn btn-ghost" [href]="venue.mapUrl" target="_blank" rel="noopener">Como llegar</a>
+          <a class="btn btn-ghost" [href]="venue.mapUrl" target="_blank" rel="noopener">¿Cómo llegar?</a>
         </article>
       }
     </div>
