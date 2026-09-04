@@ -1,4 +1,15 @@
-<div class="page-bg" aria-hidden="true"></div>
+<div class="page-bg" aria-hidden="true">
+  <video
+    class="page-bg-video"
+    src="/img/web/fondo1.mp4"
+    muted
+    autoplay
+    loop
+    playsinline
+    [muted]="true"
+    preload="metadata"
+  ></video>
+</div>
 <main class="shell" [class.is-cover]="!opened()" [class.is-open]="opened()">
   <app-invitation [data]="invitation" />
   @if (!opened()) {
