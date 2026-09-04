@@ -9,16 +9,18 @@
   </nav>
 
   <header class="hero">
-    <p class="hero-kicker">Nos casamos</p>
-    <h1>
-      <span>{{ data().couple.bride }}</span>
-      <em>y</em>
-      <span>{{ data().couple.groom }}</span>
-    </h1>
-    <p class="hero-date">{{ data().dateLabel }}</p>
-    <p class="hero-city">{{ data().city }}</p>
+    <div class="hero-copy">
+      <p class="hero-kicker">¡Nos casamos!</p>
+      <h1>
+        <span class="hero-name">{{ data().couple.bride }}</span>
+        <span class="hero-amp">&amp;</span>
+        <span class="hero-name">{{ data().couple.groom }}</span>
+      </h1>
+      <p class="hero-date">{{ data().dateLabel }}</p>
+    </div>
+     <!--<p class="hero-city">{{ data().city }}</p>
     <p class="hero-guest">Con alegría te invitan </p>
-    <span class="scroll-hint">Desliza</span>
+    <span class="scroll-hint">Desliza</span>-->
   </header>
 
   <section class="block countdown" appReveal>
@@ -89,7 +91,7 @@
 
   <section class="block" appReveal>
     <p class="section-kicker">Dónde y cuándo</p><br>
-    <h2 class="section-title">El gran día</h2>
+    <h2 class="section-title">Ceremonia y Recepción</h2>
     <div class="venues">
       @for (venue of data().venues; track venue.title) {
         <article>
@@ -97,22 +99,20 @@
           <h3>{{ venue.name }}</h3>
           <p class="venue-time">{{ venue.time }}</p>
           <p class="venue-address">{{ venue.address }}</p>
-          <a class="btn btn-ghost" [href]="venue.mapUrl" target="_blank" rel="noopener">Ver mapa</a>
+          <a class="btn btn-ghost" [href]="venue.mapUrl" target="_blank" rel="noopener">Como llegar</a>
         </article>
       }
     </div>
   </section>
 
   <section id="itinerario" class="block itinerary" appReveal>
-    <p class="section-kicker">Itinerario</p><br>
-    <h2 class="section-title">Así fluirá la noche</h2>
+    <!--<p class="section-kicker">Itinerario</p><br>-->
+    <h2 class="section-title">Itinerario de boda</h2>
     <ol class="timeline">
       @for (item of data().itinerary; track item.time; let i = $index) {
         <li [class.is-flip]="i % 2 === 1">
           <div class="timeline-art" aria-hidden="true">
-            @if (item.icon !== 'car') {
-              <img [src]="'/img/itinerary/' + item.icon + '.png'" alt="" />
-            }
+            <img [src]="'/img/itinerary/' + item.icon + '.png'" alt="" />
           </div>
           <div class="timeline-axis" aria-hidden="true">
             <svg class="heart" viewBox="0 0 18 16">
@@ -125,15 +125,12 @@
           </div>
         </li>
       }
-      <li class="timeline-finale" aria-hidden="true">
-        <img src="/img/itinerary/car.png" alt="" />
-      </li>
     </ol>
   </section>
 
   <section id="album" class="block album-block" appReveal>
-    <p class="section-kicker">Recuerdos de nuestro amor</p><br>
-    <h2 class="section-title">Álbum</h2>
+    <!--<p class="section-kicker">Recuerdos de nuestro amor</p><br>-->
+    <h2 class="section-title">Retratos de nuestro amor</h2>
     <div
       class="album"
       (pointerdown)="onAlbumPointerDown($event)"
@@ -199,12 +196,9 @@
 
   <section class="block feature-wrap" appReveal>
     <article class="feature-card">
-      <h2>Código de vestimenta</h2>
-      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
-        <path d="M36 18c4 0 7 3 7 7v4H29v-4c0-4 3-7 7-7z" stroke="currentColor" stroke-width="1.6"/>
-        <path d="M22 30c6 2 10 8 14 16 4-8 8-14 14-16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        <path d="M28 32h16M36 32v8" stroke="currentColor" stroke-width="1.5"/>
-      </svg>
+      <h2>Dress Code</h2>
+      <p>Elegante</p>
+      <img class="feature-icon dress-icon emoji-gif" src="/img/bow-tie.png" alt="" />
       <p>Una orientación para tu vestimenta</p>
       <button type="button" class="btn gifts-btn" (click)="openDress()">Ver más</button>
     </article>
@@ -212,23 +206,18 @@
 
   <section id="regalos" class="block gifts-block" appReveal>
     <h2 class="gifts-title">Regalos</h2>
+    <img class="gifts-icon" src="/img/gifts.gif?v=2" alt="" />
     <p class="gifts-lead">Si quieres darnos algo más que tu hermosa presencia...</p>
-    <svg class="gifts-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
-      <rect x="12" y="30" width="48" height="32" stroke="currentColor" stroke-width="1.6"/>
-      <path d="M12 30h48v10H12z" stroke="currentColor" stroke-width="1.6"/>
-      <path d="M36 18v44M12 40h48" stroke="currentColor" stroke-width="1.6"/>
-      <path d="M36 30c-8-12-18-12-18-4 0 6 8 8 18 4zM36 30c8-12 18-12 18-4 0 6-8 8-18 4z" stroke="currentColor" stroke-width="1.5"/>
-    </svg>
     <button type="button" class="btn gifts-btn" (click)="openGifts()">Ver más</button>
   </section>
 
   <section id="tips" class="block feature-wrap" appReveal>
     <article class="feature-card">
       <h2>Tips y Notas</h2>
-      <svg class="feature-icon" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+      <svg class="feature-icon emoji-gif" viewBox="0 0 72 72" fill="none" aria-hidden="true">
         <rect x="18" y="14" width="36" height="46" rx="3" stroke="currentColor" stroke-width="1.6"/>
         <path d="M26 12h20v8H26z" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M28 36l6 6 12-14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="emoji-check" d="M28 36l6 6 12-14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <p>Información adicional / a considerar</p>
       <button type="button" class="btn gifts-btn" (click)="openTips()">Ver más</button>
@@ -236,23 +225,22 @@
   </section>
 
   <section id="confirmacion" class="block rsvp" appReveal>
-    <p class="section-kicker">Confirmación</p>
-    <h2 class="section-title">¿Nos acompañas?</h2>
+   <!-- <p class="section-kicker">Confirmación</p>-->
+    <h2 class="section-title">Confirmación</h2>
     <p class="muted rsvp-note">
-      Con mucho cariño, les pedimos que la ceremonia sea únicamente para adultos.
-      Agradecemos de antemano su comprensión.
+      Queremos regalarles un día sin prisas. En esta ocasión, les pedimos acompañarnos sin niños.
     </p>
     @if (!rsvpSent()) {
       <form class="rsvp-form" (ngSubmit)="sendRsvp()">
         <label class="rsvp-name">
-          Nombre
+          Nombre completo
           <input
             [ngModel]="rsvpName()"
             (ngModelChange)="rsvpName.set($event); rsvpError.set('')"
             name="rsvpName"
             type="text"
             required
-            placeholder="Escribe tu nombre"
+            placeholder="Escribe tu nombre completo"
             autocomplete="name"
           />
         </label>
@@ -263,7 +251,7 @@
             <option value="no">No podré asistir</option>
           </select>
         </label>
-        <label>
+    <!--    <label>
           Mensaje para los novios
           <textarea
             [ngModel]="rsvpMessage()"
@@ -272,7 +260,7 @@
             rows="3"
             placeholder="Un deseo, una anécdota o un abrazo"
           ></textarea>
-        </label>
+        </label>-->
         @if (rsvpError()) {
           <p class="muted">{{ rsvpError() }}</p>
         }
@@ -336,7 +324,7 @@
   <footer class="footer">
     <p class="section-title">{{ data().couple.bride }} y {{ data().couple.groom }}</p>
     <p class="hashtag">{{ data().couple.hashtag }}</p>
-    <p class="tiny">{{ data().date | date:'d MMMM y' }} · {{ data().city }}</p>
+    <!--<p class="tiny">{{ data().date | date:'d MMMM y' }} · {{ data().city }}</p>-->
   </footer>
 </article>
 
@@ -558,7 +546,14 @@
       </svg>
       <h2 class="gifts-title">Regalos</h2>
       <p class="gifts-text">
-        También pueden contribuir mediante:
+        “Su presencia es el mejor regalo.
+
+      Pero si desean sumar un detalle más a
+      nuestra felicidad, pueden hacerlo a
+      través de la siguiente cuenta.
+      
+       ¡Les agradecemos de antemano su
+      amabilidad!”
       </p>
       <ul class="gifts-list">
         <li>
@@ -598,8 +593,12 @@
         
       </ul>
       <p class="gifts-text">
-        Cualquier transacción a nombre de Nancy Martinez.
+        A nombre de: Nancy Karina Martinez Linares
       </p>
+      <p class="gifts-text">¡Muchísimas gracias por formar parte de nuestra
+historia y ayudarnos a empezar este nuevo
+capítulo! </p>
+      
     </div>
   </div>
 }

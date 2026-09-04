@@ -7,7 +7,7 @@ export const INVITATION: InvitationData = {
     bride: 'Nancy',
     groom: 'Hugo',
     monogram: 'N & H',
-    hashtag: '#NancyYHugo2026',
+    hashtag: '¡Los esperamos!',
   },
   date: new Date('2026-10-31T14:00:00-06:00'),
   dateLabel: 'Sábado 31 de octubre de 2026',
@@ -46,8 +46,8 @@ export const INVITATION: InvitationData = {
     { time: '5:00 pm', title: 'Recepción', detail: 'Bienvenida en la hacienda', icon: 'reception' },
     { time: '6:00 pm', title: 'Brindis', detail: 'Un brindis por nosotros', icon: 'toast' },
     { time: '7:00 pm', title: 'Cena', detail: 'Mesa y discursos', icon: 'dinner' },
-    { time: '8:00 pm', title: 'Fiesta', detail: 'A bailar hasta tarde', icon: 'party' },
-    { time: '1:00 am', title: 'Final', detail: 'Nos despedimos de nuestros invitados', icon: 'car' },
+    { time: '8:00 pm', title: 'Celebración', detail: 'A bailar hasta tarde', icon: 'party' },
+    { time: '1:00 am', title: 'Aqui ', detail: 'Nos despedimos de nuestros invitados', icon: 'car' },
   ],
   gallery: [
     photo('01.jpg'),
@@ -87,12 +87,12 @@ export const INVITATION: InvitationData = {
       text: 'Adoramos a sus pequeños, pero esta noche será únicamente para adultos.',
     },
     {
-      title: 'Estacionamiento',
-      text: 'Habrá valet en la hacienda. En el centro recomendamos llegar caminando o en taxi.',
+      title: 'Ceremonia',
+      text: 'Momento sin cámaras de celular, nuestros profesionales se encargarán de las fotos.',
     },
     {
-      title: 'Clima',
-      text: 'Septiembre es fresco por la noche. Un saco les va a servir.',
+      title: 'Estacionamiento',
+      text: 'Contamos con estacionamiento para nuestros invitados. Los espacios estarán disponibles por orden de llegada.',
     },
   ],
   couplePlaylist: [

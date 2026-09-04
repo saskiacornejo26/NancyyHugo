@@ -1,14 +1,14 @@
-@if (opened()) {
-  <div class="page-bg" aria-hidden="true"></div>
-}
+<div class="page-bg" aria-hidden="true"></div>
 <main class="shell" [class.is-cover]="!opened()" [class.is-open]="opened()">
+  <app-invitation [data]="invitation" />
   @if (!opened()) {
     <app-envelope
+      class="envelope-layer"
       [couple]="invitation.couple"
       (opened)="openInvitation()"
     />
-  } @else {
-    <app-invitation [data]="invitation" />
+  }
+  @if (opened()) {
     <button
       type="button"
       class="music"

@@ -6,6 +6,9 @@ import { Couple } from '../../models/invitation.model';
   standalone: true,
   templateUrl: './envelope.component.html',
   styleUrl: './envelope.component.scss',
+  host: {
+    '[class.is-opening]': 'opening()',
+  },
 })
 export class EnvelopeComponent {
   readonly couple = input.required<Couple>();
@@ -19,6 +22,6 @@ export class EnvelopeComponent {
     }
 
     this.opening.set(true);
-    window.setTimeout(() => this.opened.emit(), 1450);
+    window.setTimeout(() => this.opened.emit(), 1200);
   }
 }

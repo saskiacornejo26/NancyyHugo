@@ -121,12 +121,10 @@ export class InvitationComponent implements OnInit {
   whatsappUrl(): string {
     const d = this.data();
     const name = this.rsvpName().trim();
-    const attending = this.rsvpAttending() === 'si' ? 'Sí, asistiré' : 'No podré asistir';
+    const attending = this.rsvpAttending() === 'si' ? 'quiero confirmar mi asistencia' : 'no podré asistir';
     const note = this.rsvpMessage().trim();
     const message = [
-      `Hola, soy ${name}.`,
-      `Confirmación: ${attending}.`,
-      note ? `Mensaje: ${note}` : '',
+      `¡Hola! ${attending} a la boda de Nancy & Hugo, mi nombre completo es: ${name}.`,
     ]
       .filter(Boolean)
       .join(' ');

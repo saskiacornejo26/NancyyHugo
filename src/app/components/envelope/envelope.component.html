@@ -1,32 +1,29 @@
 <section class="screen" [class.is-opening]="opening()">
-  <div class="glow" aria-hidden="true"></div>
-
-  <p class="eyebrow">Tienes una invitación</p>
-  <p class="script">{{ couple().bride }} y {{ couple().groom }}</p>
-
-  <div class="envelope">
-    <div class="paper">
-      <div class="card">
-        <img src="/img/monogram-nh.jpg" alt="Monograma de Nancy y Hugo" />
-      </div>
-      <div class="flap"></div>
-      <button
-        type="button"
-        class="seal"
-        (click)="open()"
-        [disabled]="opening()"
-        [attr.aria-label]="'Abrir invitación de ' + couple().bride + ' y ' + couple().groom"
-      >
-        <span class="seal-disk" aria-hidden="true">
-          <span class="seal-well">
-            <span class="seal-mono">
-              <span>N</span>
-              <span class="seal-y">y</span>
-              <span>H</span>
-            </span>
-          </span>
-        </span>
-      </button>
-    </div>
+  <div class="rest">
+    <span class="tri tri-top"></span>
+    <span class="tri tri-left"></span>
+    <span class="tri tri-bottom"></span>
   </div>
+  <div class="flap-one"></div>
+  <svg class="folds" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <line class="fold-soft" x1="0" y1="0" x2="50" y2="50" />
+    <line class="fold-soft" x1="0" y1="100" x2="50" y2="50" />
+    <line class="fold-shadow" x1="100" y1="0" x2="50" y2="50" />
+    <line class="fold-shadow" x1="100" y1="100" x2="50" y2="50" />
+    <line class="fold-light fold-ne" x1="100" y1="0" x2="50" y2="50" />
+    <line class="fold-light fold-se" x1="100" y1="100" x2="50" y2="50" />
+  </svg>
+  <p class="eyebrow">Tienes una invitación</p>
+  <p class="script">{{ couple().bride }} & {{ couple().groom }}</p>
+  <button
+    type="button"
+    class="seal"
+    (click)="open()"
+    [disabled]="opening()"
+    [attr.aria-label]="'Abrir invitación de ' + couple().bride + ' y ' + couple().groom"
+  >
+    <img class="seal-art" src="/img/seal-gold.png" alt="" />
+    <span class="seal-face" aria-hidden="true"></span>
+    <span class="seal-stamp" aria-hidden="true"></span>
+  </button>
 </section>

@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'Edwardian Script ITC';
+  src:
+    local('Edwardian Script ITC'),
+    local('Edwardian Script ITC Regular'),
+    local('ITCEDSCR');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   --ivory: #f7f9f4;
   --paper: #f7f9f4;
@@ -14,6 +24,10 @@
   --serif: 'Cormorant Garamond', 'Times New Roman', serif;
   --script: 'Great Vibes', cursive;
   --sans: 'Outfit', system-ui, sans-serif;
+  --bell: 'Bell MT', 'Libre Baskerville', 'Palatino Linotype', Palatino, serif;
+  --edwardian: 'Edwardian Script ITC', Allura, 'Great Vibes', cursive;
+  --calibri: Calibri, Carlito, 'Segoe UI', sans-serif;
+  --didot: 'Playfair Display', 'Times New Roman', serif;
 }
 
 *,
@@ -89,10 +103,12 @@ a {
 }
 
 .section-title {
-  font-family: var(--script);
-  font-size: clamp(2.6rem, 8vw, 3.6rem);
+  font-family: var(--calibri);
+  font-size: clamp(1.75rem, 5.2vw, 2.2rem);
   font-weight: 400;
-  line-height: 1;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: 0;
   color: var(--terracotta);
 }
 
