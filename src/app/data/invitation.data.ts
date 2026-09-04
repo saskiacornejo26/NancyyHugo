@@ -84,7 +84,7 @@ export const INVITATION: InvitationData = {
     },
     {
       title: 'Solo adultos',
-      text: 'Adoramos a sus pequeños, pero esta noche será únicamente para adultos.',
+      text: 'Evento exclusivo para adultos.',
     },
     {
       title: 'Ceremonia Religiosa',
