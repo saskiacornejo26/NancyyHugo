@@ -58,9 +58,21 @@
     <p class="section-kicker">Con la bendición de</p>
     <h2 class="section-title">Nuestros padres</h2>
     <div class="parents">
-      @for (pair of data().parents; track pair.title) {
+      @for (pair of data().parents; track pair.names[0]; let i = $index) {
         <div>
-          <p>{{ pair.title }}</p>
+          @if (i === 0) {
+            <img
+              class="parents-emoji emoji-gif is-bride"
+              src="/img/bride-emoji.png"
+              alt="Padres de la novia"
+            />
+          } @else {
+            <img
+              class="parents-emoji emoji-gif is-groom"
+              src="/img/groom-emoji.png"
+              alt="Padres del novio"
+            />
+          }
           @for (name of pair.names; track name) {
             <strong>{{ name }}</strong>
           }
@@ -75,7 +87,7 @@
     <div class="padrinos">
       @for (pair of data().padrinos; track pair.title) {
         <div>
-          <p>{{ pair.title }}</p>
+        <!--<p>{{ pair.title }}</p>-->
           @for (name of pair.names; track name) {
             <strong>{{ name }}</strong>
           }
@@ -95,9 +107,21 @@
     <div class="venues">
       @for (venue of data().venues; track venue.title) {
         <article>
-          <p class="venue-label">{{ venue.title }}</p>
-          <h3>{{ venue.name }}</h3>
-          <p class="venue-time">{{ venue.time }}</p>
+          <!--<p class="venue-label">{{ venue.title }}</p>-->
+          <!--<h3>{{ venue.name }}</h3>-->
+          <div class="date-lockup" [attr.aria-label]="data().dateLabel + ', ' + venue.time">
+            <p class="date-lockup-month">{{ data().date | date:'MMMM' }}</p>
+            <div class="date-lockup-row">
+              <div class="date-lockup-side is-left">
+                <span>{{ data().date | date:'EEEE' }}</span>
+              </div>
+              <strong>{{ data().date | date:'d' }}</strong>
+              <div class="date-lockup-side is-right">
+                <span>{{ venue.time }}</span>
+              </div>
+            </div>
+            <p class="date-lockup-year">{{ data().date | date:'y' }}</p>
+          </div>
           <p class="venue-address">{{ venue.address }}</p>
           <a class="btn btn-ghost" [href]="venue.mapUrl" target="_blank" rel="noopener">Como llegar</a>
         </article>

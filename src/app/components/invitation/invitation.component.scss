@@ -223,9 +223,25 @@
   color: var(--terracotta);
 }
 
+.parents-emoji {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 0.1rem auto 0.55rem;
+  object-fit: contain;
+  overflow: visible;
+}
+
+.parents-emoji.is-bride {
+  animation: bride-float 2.8s ease-in-out infinite;
+}
+
+.parents-emoji.is-groom {
+  animation: groom-bob 2.4s ease-in-out infinite 0.35s;
+}
+
 .timer span,
 .venue-label,
-.parents p,
 .padrinos p,
 .tiny {
   font-size: 0.68rem;
@@ -293,6 +309,10 @@
   box-shadow: none;
 }
 
+.parents div {
+  overflow: visible;
+}
+
 .parents strong,
 .padrinos strong,
 .venues h3,
@@ -306,10 +326,89 @@
   font-weight: 500;
 }
 
+.venues h3 {
+  font-size: 1.55rem;
+}
+
 .venue-time {
   margin: 0.2rem 0 0.45rem;
   font-family: var(--serif);
   font-size: 1.15rem;
+}
+
+.date-lockup {
+  margin: 0.85rem auto 1rem;
+  max-width: 26rem;
+  text-align: center;
+}
+
+.date-lockup-month,
+.date-lockup-year {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.date-lockup-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.55rem;
+  margin: 0.1rem 0 0.15rem;
+}
+
+.date-lockup-row strong {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(3.1rem, 13vw, 4.1rem);
+  font-weight: 500;
+  line-height: 0.88;
+  color: var(--terracotta);
+}
+
+.date-lockup-side {
+  position: relative;
+  min-height: 3.1rem;
+}
+
+.date-lockup-side::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  border-top: 1px solid var(--terracotta);
+}
+
+.date-lockup-side span {
+  position: absolute;
+  right: 0;
+  bottom: calc(50% + 0.3rem);
+  left: 0;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--olive);
+}
+
+.date-lockup-side.is-left span {
+  text-align: right;
+}
+
+.date-lockup-side.is-right span {
+  text-align: left;
+}
+
+.venues .venue-address {
+  font-size: 1.35rem;
 }
 
 .venues .btn,
@@ -1006,10 +1105,37 @@ textarea {
   }
 }
 
+@keyframes bride-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+
+  50% {
+    transform: translateY(-9px) rotate(4deg) scale(1.04);
+  }
+}
+
+@keyframes groom-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  35% {
+    transform: translateY(-10px) rotate(-5deg) scale(1.05);
+  }
+
+  65% {
+    transform: translateY(-3px) rotate(3deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .emoji-gif,
   .gifts-block .emoji-bow,
-  #tips .emoji-check {
+  #tips .emoji-check,
+  .parents-emoji {
     animation: none;
   }
 }

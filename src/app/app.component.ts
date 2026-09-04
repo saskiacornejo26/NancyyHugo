@@ -45,7 +45,7 @@ export class AppComponent implements OnDestroy {
     this.audio?.pause();
   }
 
-  private startMusic(): void {
+  startMusic(): void {
     if (!this.invitation.musicUrl) {
       this.musicOn.set(true);
       return;
@@ -54,6 +54,11 @@ export class AppComponent implements OnDestroy {
     if (!this.audio) {
       this.audio = new Audio(this.invitation.musicUrl);
       this.audio.loop = true;
+    }
+
+    if (!this.audio.paused) {
+      this.musicOn.set(true);
+      return;
     }
 
     void this.audio.play().then(() => this.musicOn.set(true)).catch(() => this.musicOn.set(false));

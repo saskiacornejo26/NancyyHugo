@@ -13,6 +13,7 @@ import { Couple } from '../../models/invitation.model';
 export class EnvelopeComponent {
   readonly couple = input.required<Couple>();
   readonly opened = output<void>();
+  readonly openingStart = output<void>();
 
   readonly opening = signal(false);
 
@@ -22,6 +23,7 @@ export class EnvelopeComponent {
     }
 
     this.opening.set(true);
+    this.openingStart.emit();
     window.setTimeout(() => this.opened.emit(), 1200);
   }
 }

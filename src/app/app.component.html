@@ -16,6 +16,7 @@
     <app-envelope
       class="envelope-layer"
       [couple]="invitation.couple"
+      (openingStart)="startMusic()"
       (opened)="openInvitation()"
     />
   }
