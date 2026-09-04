@@ -1,11 +1,13 @@
 @font-face {
   font-family: 'Edwardian Script ITC';
   src:
+    url('/fonts/edwardian-script-itc.ttf') format('truetype'),
     local('Edwardian Script ITC'),
     local('Edwardian Script ITC Regular'),
     local('ITCEDSCR');
   font-weight: 400;
   font-style: normal;
+  font-display: block;
 }
 
 :root {
@@ -25,7 +27,7 @@
   --script: 'Great Vibes', cursive;
   --sans: 'Outfit', system-ui, sans-serif;
   --bell: 'Bell MT', 'Libre Baskerville', 'Palatino Linotype', Palatino, serif;
-  --edwardian: 'Edwardian Script ITC', Allura, 'Great Vibes', cursive;
+  --edwardian: 'Edwardian Script ITC', cursive;
   --calibri: Calibri, Carlito, 'Segoe UI', sans-serif;
   --didot: 'Playfair Display', 'Times New Roman', serif;
 }
