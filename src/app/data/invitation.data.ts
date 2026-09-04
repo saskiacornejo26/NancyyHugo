@@ -18,17 +18,17 @@ export const INVITATION: InvitationData = {
   parents: [
     {
       title: 'Padres de la novia',
-      names: ['Sr. David Hugo Martinez Arellano', 'Sra. Maura Victoria Linares Cunza'],
+      names: ['David Hugo Martinez Arellano', 'Maura Victoria Linares Cunza'],
     },
     {
       title: 'Padres del novio',
-      names: ['Sr. Hugo Guillermo Robles Pérez', 'Sra. Olga Noriega Victoria'],
+      names: ['Hugo Guillermo Robles Pérez', 'Olga Noriega Victoria'],
     },
   ],
   padrinos: [
     {
       title: 'Padrinos',
-      names: ['Sr. Randolph Tito Esquivel', 'Sra. Beatriz Elena Martinez León'],
+      names: ['Randolph Tito Esquivel', 'Beatriz Elena Martinez León'],
     },
   ],
   venues: [
@@ -42,11 +42,12 @@ export const INVITATION: InvitationData = {
     },
   ],
   itinerary: [
-    { time: '15:30', title: 'Ceremonia', detail: 'Nos damos el sí', icon: 'ceremony' },
-    { time: '18:00', title: 'Recepción', detail: 'Bienvenida en la hacienda', icon: 'reception' },
-    { time: '19:00', title: 'Brindis', detail: 'Un brindis por nosotros', icon: 'toast' },
-    { time: '19:30', title: 'Cena', detail: 'Mesa y discursos', icon: 'dinner' },
-    { time: '20:30', title: 'Fiesta', detail: 'A bailar hasta tarde', icon: 'party' },
+    { time: '3:00 pm', title: 'Ceremonia', detail: 'Nos damos el sí', icon: 'ceremony' },
+    { time: '5:00 pm', title: 'Recepción', detail: 'Bienvenida en la hacienda', icon: 'reception' },
+    { time: '6:00 pm', title: 'Brindis', detail: 'Un brindis por nosotros', icon: 'toast' },
+    { time: '7:00 pm', title: 'Cena', detail: 'Mesa y discursos', icon: 'dinner' },
+    { time: '8:00 pm', title: 'Fiesta', detail: 'A bailar hasta tarde', icon: 'party' },
+    { time: '1:00 am', title: 'Final', detail: 'Nos despedimos de nuestros invitados', icon: 'car' },
   ],
   gallery: [
     photo('01.jpg'),

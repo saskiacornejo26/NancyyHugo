@@ -110,7 +110,9 @@
       @for (item of data().itinerary; track item.time; let i = $index) {
         <li [class.is-flip]="i % 2 === 1">
           <div class="timeline-art" aria-hidden="true">
-            <img [src]="'/img/itinerary/' + item.icon + '.png'" alt="" />
+            @if (item.icon !== 'car') {
+              <img [src]="'/img/itinerary/' + item.icon + '.png'" alt="" />
+            }
           </div>
           <div class="timeline-axis" aria-hidden="true">
             <svg class="heart" viewBox="0 0 18 16">

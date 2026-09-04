@@ -22,7 +22,7 @@ export interface TimelineItem {
   time: string;
   title: string;
   detail: string;
-  icon: 'ceremony' | 'reception' | 'toast' | 'dinner' | 'party';
+  icon: 'ceremony' | 'reception' | 'toast' | 'dinner' | 'party' | 'car';
 }
 
 export interface GiftInfo {
