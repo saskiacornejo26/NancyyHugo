@@ -34,7 +34,7 @@ export const INVITATION: InvitationData = {
   venues: [
     {
       title: 'Ceremonia',
-      time: '15:00 hrs',
+      time: '3:00 pm',
       name: 'Villa Lúcumo',
       address: 'Villa Lúcumo, Calle 8, Pachacamac, Perú',
       mapUrl:
@@ -42,12 +42,12 @@ export const INVITATION: InvitationData = {
     },
   ],
   itinerary: [
-    { time: '3:00 pm', title: 'Ceremonia', detail: 'Nos damos el sí', icon: 'ceremony' },
+    { time: '3:00 pm', title: 'Ceremonia Religiosa', detail: 'Nos damos el sí', icon: 'ceremony' },
     { time: '5:00 pm', title: 'Recepción', detail: 'Bienvenida en la hacienda', icon: 'reception' },
     { time: '6:00 pm', title: 'Brindis', detail: 'Un brindis por nosotros', icon: 'toast' },
     { time: '7:00 pm', title: 'Cena', detail: 'Mesa y discursos', icon: 'dinner' },
-    { time: '8:00 pm', title: 'Celebración', detail: 'A bailar hasta tarde', icon: 'party' },
-    { time: '1:00 am', title: 'Aqui ', detail: 'Nos despedimos de nuestros invitados', icon: 'car' },
+    { time: '8:00 pm', title: 'Fiesta', detail: 'A bailar hasta tarde', icon: 'party' },
+    { time: '1:00 am', title: 'Fin', detail: 'Nos despedimos de nuestros invitados', icon: 'car' },
   ],
   gallery: [
     photo('01.jpg'),
@@ -80,14 +80,14 @@ export const INVITATION: InvitationData = {
   tips: [
     {
       title: 'Puntualidad',
-      text: 'La ceremonia inicia a las 15:00 en punto. Les pedimos llegar 30 minutos antes.',
+      text: 'La ceremonia religiosa inicia a las 3:00 pm en punto.',
     },
     {
       title: 'Solo adultos',
       text: 'Adoramos a sus pequeños, pero esta noche será únicamente para adultos.',
     },
     {
-      title: 'Ceremonia',
+      title: 'Ceremonia Religiosa',
       text: 'Momento sin cámaras de celular, nuestros profesionales se encargarán de las fotos.',
     },
     {

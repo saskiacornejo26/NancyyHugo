@@ -477,11 +477,18 @@
     >
       <div class="sheet-handle" aria-hidden="true"></div>
       <button type="button" class="gifts-close" (click)="closeDress()" aria-label="Cerrar">×</button>
-      <img
-        class="dress-code-art"
-        src="/img/web/dress-code.jpg"
-        alt="Dress code: traje para hombres y vestido para mujeres. Evitar blanco, reservado para la novia."
-      />
+      <button
+        type="button"
+        class="dress-code-zoom"
+        (click)="openDressZoom()"
+        (pointerdown)="$event.stopPropagation()"
+      >
+        <img
+          class="dress-code-art"
+          src="/img/web/dress-code.jpg"
+          alt="Dress code: traje para hombres y vestido para mujeres. Evitar blanco, reservado para la novia."
+        />
+      </button>
     </div>
   </div>
 }
@@ -563,7 +570,7 @@
             target="_blank"
             rel="noopener"
           >
-            <strong>Lista de regalos sugeridos</strong>
+            <strong>Mesa de regalos sugeridos</strong>
             <span>Sin Envolturas</span>
             <small>Toca para ver las opciones</small>
           </a>
@@ -600,6 +607,28 @@ historia y ayudarnos a empezar este nuevo
 capítulo! </p>
       
     </div>
+  </div>
+}
+
+@if (dressZoomOpen()) {
+  <div class="dress-zoom" role="dialog" aria-modal="true" aria-label="Dress code ampliado">
+    <button type="button" class="gifts-close dress-zoom-close" (click)="closeDressZoom()" aria-label="Cerrar">×</button>
+    <div
+      class="dress-zoom-stage"
+      (pointerdown)="onDressZoomDown($event)"
+      (pointermove)="onDressZoomMove($event)"
+      (pointerup)="onDressZoomUp($event)"
+      (pointercancel)="onDressZoomUp($event)"
+      (wheel)="onDressZoomWheel($event)"
+    >
+      <img
+        src="/img/web/dress-code.jpg"
+        alt="Dress code ampliado"
+        [style.transform]="dressZoomTransform()"
+        draggable="false"
+      />
+    </div>
+    <p class="dress-zoom-hint">Pellizca o toca dos veces para ampliar</p>
   </div>
 }
 

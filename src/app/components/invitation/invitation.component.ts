@@ -47,6 +47,12 @@ export class InvitationComponent implements OnInit {
   private sheetStartY = 0;
   private sheetCanDrag = false;
   private lightboxStartX = 0;
+  private readonly dressPointers = new Map<number, { x: number; y: number }>();
+  private dressPinchDist = 0;
+  private dressPinchScale = 1;
+  private dressLastTap = 0;
+  private dressPanning = false;
+  private dressPanOrigin = { x: 0, y: 0, px: 0, py: 0 };
 
   readonly data = input.required<InvitationData>();
 
@@ -57,6 +63,10 @@ export class InvitationComponent implements OnInit {
   readonly songsOpen = signal(false);
   readonly tipsOpen = signal(false);
   readonly dressOpen = signal(false);
+  readonly dressZoomOpen = signal(false);
+  readonly dressScale = signal(1);
+  readonly dressPanX = signal(0);
+  readonly dressPanY = signal(0);
   readonly playlistOpen = signal(false);
   readonly videoOpen = signal(false);
   readonly sheetY = signal(0);
@@ -189,7 +199,108 @@ export class InvitationComponent implements OnInit {
   }
 
   closeDress(): void {
+    this.closeDressZoom();
     this.closeSheet(this.dressOpen);
+  }
+
+  openDressZoom(): void {
+    this.dressScale.set(1);
+    this.dressPanX.set(0);
+    this.dressPanY.set(0);
+    this.dressZoomOpen.set(true);
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeDressZoom(): void {
+    this.dressZoomOpen.set(false);
+    this.dressPointers.clear();
+    this.dressScale.set(1);
+    this.dressPanX.set(0);
+    this.dressPanY.set(0);
+    this.syncScroll();
+  }
+
+  dressZoomTransform(): string {
+    return `translate(${this.dressPanX()}px, ${this.dressPanY()}px) scale(${this.dressScale()})`;
+  }
+
+  onDressZoomDown(event: PointerEvent): void {
+    const stage = event.currentTarget as HTMLElement;
+    stage.setPointerCapture?.(event.pointerId);
+    this.dressPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (this.dressPointers.size === 2) {
+      this.dressPinchDist = this.dressPointerDistance();
+      this.dressPinchScale = this.dressScale();
+      this.dressPanning = false;
+      return;
+    }
+    if (this.dressScale() > 1) {
+      this.dressPanning = true;
+      this.dressPanOrigin = {
+        x: event.clientX,
+        y: event.clientY,
+        px: this.dressPanX(),
+        py: this.dressPanY(),
+      };
+    }
+  }
+
+  onDressZoomMove(event: PointerEvent): void {
+    if (!this.dressPointers.has(event.pointerId)) {
+      return;
+    }
+    this.dressPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (this.dressPointers.size >= 2) {
+      const dist = this.dressPointerDistance();
+      if (this.dressPinchDist > 0) {
+        const next = Math.min(4, Math.max(1, this.dressPinchScale * (dist / this.dressPinchDist)));
+        this.dressScale.set(next);
+        if (next <= 1.02) {
+          this.dressScale.set(1);
+          this.dressPanX.set(0);
+          this.dressPanY.set(0);
+        }
+      }
+      return;
+    }
+    if (this.dressPanning && this.dressScale() > 1) {
+      this.dressPanX.set(this.dressPanOrigin.px + event.clientX - this.dressPanOrigin.x);
+      this.dressPanY.set(this.dressPanOrigin.py + event.clientY - this.dressPanOrigin.y);
+    }
+  }
+
+  onDressZoomUp(event: PointerEvent): void {
+    this.dressPointers.delete(event.pointerId);
+    if (this.dressPointers.size < 2) {
+      this.dressPinchDist = 0;
+    }
+    if (this.dressPointers.size !== 0) {
+      return;
+    }
+    this.dressPanning = false;
+    const now = Date.now();
+    if (now - this.dressLastTap < 280) {
+      if (this.dressScale() > 1) {
+        this.dressScale.set(1);
+        this.dressPanX.set(0);
+        this.dressPanY.set(0);
+      } else {
+        this.dressScale.set(2.4);
+      }
+      this.dressLastTap = 0;
+    } else {
+      this.dressLastTap = now;
+    }
+  }
+
+  onDressZoomWheel(event: WheelEvent): void {
+    event.preventDefault();
+    const next = Math.min(4, Math.max(1, this.dressScale() * (event.deltaY > 0 ? 0.9 : 1.1)));
+    this.dressScale.set(next);
+    if (next === 1) {
+      this.dressPanX.set(0);
+      this.dressPanY.set(0);
+    }
   }
 
   openPlaylist(): void {
@@ -265,6 +376,10 @@ export class InvitationComponent implements OnInit {
     }
     if (this.tipsOpen()) {
       this.closeTips();
+      return;
+    }
+    if (this.dressZoomOpen()) {
+      this.closeDressZoom();
       return;
     }
     if (this.dressOpen()) {
@@ -637,6 +752,7 @@ export class InvitationComponent implements OnInit {
     this.songsOpen.set(false);
     this.tipsOpen.set(false);
     this.dressOpen.set(false);
+    this.dressZoomOpen.set(false);
     this.playlistOpen.set(false);
     this.videoOpen.set(false);
     this.sheetY.set(0);
@@ -649,10 +765,19 @@ export class InvitationComponent implements OnInit {
       this.songsOpen() ||
       this.tipsOpen() ||
       this.dressOpen() ||
+      this.dressZoomOpen() ||
       this.playlistOpen() ||
       this.videoOpen() ||
       this.cameraOpen();
     document.body.style.overflow = locked ? 'hidden' : '';
+  }
+
+  private dressPointerDistance(): number {
+    const pts = [...this.dressPointers.values()];
+    if (pts.length < 2) {
+      return 0;
+    }
+    return Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
   }
 
   private tick(): void {
