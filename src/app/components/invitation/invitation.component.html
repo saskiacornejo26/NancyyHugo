@@ -253,8 +253,9 @@
    <!-- <p class="section-kicker">Confirmación</p>-->
     <h2 class="section-title">Confirmación</h2>
     <p class="muted rsvp-note">
-      Queremos regalarles un día sin prisas. En esta ocasión, les pedimos acompañarnos sin niños.
+      Es un evento íntimo, así que esta invitación es tan exclusiva como tú.
     </p>
+    
     @if (!rsvpSent()) {
       <form class="rsvp-form" (ngSubmit)="sendRsvp()">
         <label class="rsvp-name">
@@ -276,6 +277,7 @@
             <option value="no">No podré asistir</option>
           </select>
         </label>
+        
     <!--    <label>
           Mensaje para los novios
           <textarea
@@ -294,6 +296,9 @@
     } @else {
       <p class="thanks">¡Gracias, {{ rsvpName() }}! WhatsApp se abrió con tu confirmación lista para enviar.</p>
     }
+    <p class="muted rsvp-note">
+      Queremos regalarles un día sin prisas. En esta ocasión, les pedimos acompañarnos sin niños.
+    </p>
   </section>
 
   <!--<section id="mas" class="block feature-wrap" appReveal>
